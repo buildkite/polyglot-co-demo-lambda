@@ -1,0 +1,6 @@
+steps:
+  - name: ":lambda: Test"
+    command: npm run test
+    plugins:
+      docker-compose:
+        run: lambda

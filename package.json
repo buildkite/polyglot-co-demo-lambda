@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "mocha": "2",
+    "fetch-mock": "4"
+  },
+  "scripts": {
+  	"test": "mocha functions/**",
+    "deploy": "apex deploy --env-file env.json"
+  }
+}
