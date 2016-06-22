@@ -4,8 +4,6 @@
     "fetch-mock": "4"
   },
   "scripts": {
-  	"test": "mocha functions/**",
-    "build": "apex build > build.zip",
-    "deploy": "apex deploy --env-file env.json"
+  	"test": "mocha functions/**"
   }
 }

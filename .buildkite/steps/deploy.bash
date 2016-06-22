@@ -4,19 +4,14 @@ set -euo pipefail
 
 echo "--- :s3: Retrieving configs"
 
-aws s3 cp "s3://${S3_PROD_BUCKET_NAME}/env.json" env.json
-aws s3 cp "s3://${S3_PROD_BUCKET_NAME}/project.json" project.json
+aws s3 cp "${S3_URL_APEX_PROD_ENV_JSON}" env.json
+aws s3 cp "${S3_URL_APEX_PROD_PROJECT_JSON}" project.json
 
-echo "--- :apex: Building zip"
+echo "--- :apex: Building zip for debugging"
 
-docker-compose run node npm run build
-
-ls -la build.zip
+apex build > /src/build.zip
+ls -la /src/build.zip
 
 echo "--- :lambda: Deploying"
 
-docker-compose run --rm \
-  -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" \
-  -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" \
-  -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" \
-  node npm run deploy
+apex deploy --env-file env.json
