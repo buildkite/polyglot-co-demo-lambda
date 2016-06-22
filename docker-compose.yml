@@ -1,5 +1,7 @@
 version: '2'
 
 services:
-  lambda:
+  node:
     build: .
+    volumes:
+      - .:/src

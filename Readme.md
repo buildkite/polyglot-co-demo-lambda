@@ -20,5 +20,5 @@ npm run test
 Alternatively you can just use Docker Compose:
 
 ```bash
-docker-compose run lambda npm run test
+docker-compose run node npm run test
 ```

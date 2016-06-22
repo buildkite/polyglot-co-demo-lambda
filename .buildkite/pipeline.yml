@@ -5,4 +5,12 @@ steps:
       queue: elastic
     plugins:
       docker-compose:
-        run: lambda
+        run: node
+
+  - wait
+
+  - name: ":lambda: Deploy"
+    command: './buildkite/scripts/deploy.bash'
+    agents:
+      queue: elastic
+    artifact_paths: "build.zip"

@@ -5,6 +5,7 @@
   },
   "scripts": {
   	"test": "mocha functions/**",
+    "build": "apex build > build.zip",
     "deploy": "apex deploy --env-file env.json"
   }
 }
