@@ -1,6 +1,8 @@
 steps:
   - name: ":lambda: Test"
     command: npm run test
+    agents:
+      queue: elastic
     plugins:
       docker-compose:
         run: lambda
