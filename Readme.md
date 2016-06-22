@@ -5,10 +5,19 @@ Part of the Polyglot Co Buildkite demo. This demonstrates running build and depl
 ## Developing
 
 ```bash
+# Install deps we don't want to deploy to Lambda
+npm install
+
+# Install each function's own runtime deps
+for dir in functions/*; do
+  pushd "$dir" && npm install && popd
+done
+
+# Run the tests for all functions
 npm run test
 ```
 
-via Docker Compose:
+Alternatively you can just use Docker Compose:
 
 ```bash
 docker-compose run lambda npm run test

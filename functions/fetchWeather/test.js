@@ -11,7 +11,7 @@ function mockForecastIo(lat, lng, response) {
 }
 
 describe('fetchWeather', function() {
-  after(function() {
+  afterEach(function() {
     fetchMock.restore();
   })
 
@@ -73,5 +73,18 @@ describe('fetchWeather', function() {
         done(x);
       }
     })
+  })
+
+  it('handles API errors', function(done) {
+    mockForecastIo('43.7711','11.2486', 400);
+
+    fetchWeather({locations:[['43.7711','11.2486']]}, {}, function(err, json) {
+      try {
+        assert(err);
+        done();
+      } catch (x) {
+        done(x);
+      }
+    });
   })
 })
