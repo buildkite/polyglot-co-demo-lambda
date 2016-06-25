@@ -4,4 +4,6 @@ steps:
     command: ".buildkite/steps/deploy.bash"
     agents:
       queue: ${BUILDKITE_AGENT_META_DATA_QUEUE}
-    artifact_paths: "build.zip"
+    plugins:
+      docker-compose:
+        run: node

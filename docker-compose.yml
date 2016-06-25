@@ -5,6 +5,3 @@ services:
     build: .
     volumes:
       - .:/src
-    environment:
-      FORECAST_API_KEY:
-      APEX_ROLE:

@@ -7,7 +7,6 @@ steps:
       docker-compose:
         run: node
 
-
   - wait
 
   - trigger: "${BUILDKITE_PIPELINE_SLUG}-deploy"
