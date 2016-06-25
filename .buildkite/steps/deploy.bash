@@ -19,7 +19,7 @@ cat << EOF > project.json
 }
 EOF
 
-echo "--- :lambda: Deploying"
+echo "+++ :lambda: Deploying"
 
 export AWS_REGION="${APEX_REGION}"
 
