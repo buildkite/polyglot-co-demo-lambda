@@ -21,4 +21,6 @@ EOF
 
 echo "--- :lambda: Deploying"
 
+export AWS_DEFAULT_REGION="${APEX_REGION}"
+
 apex deploy --env-file env.json
