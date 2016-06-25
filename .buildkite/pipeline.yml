@@ -2,7 +2,7 @@ steps:
   - name: ":lambda: Test"
     command: npm run test
     agents:
-      queue: elastic
+      queue: $BUILDKITE_AGENT_META_DATA_QUEUE
     plugins:
       docker-compose:
         run: node
@@ -12,5 +12,5 @@ steps:
   - name: ":lambda: Deploy"
     command: './buildkite/scripts/deploy.bash'
     agents:
-      queue: elastic
+      queue: $BUILDKITE_AGENT_META_DATA_QUEUE
     artifact_paths: "build.zip"
