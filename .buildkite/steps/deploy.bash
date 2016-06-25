@@ -4,8 +4,8 @@ set -euo pipefail
 
 echo "--- :s3: Retrieving configs"
 
-aws s3 cp "${S3_URL_APEX_PROD_ENV_JSON}" env.json
-aws s3 cp "${S3_URL_APEX_PROD_PROJECT_JSON}" project.json
+aws s3 cp "${APEX_PROD_ENV_JSON_S3_URL}" env.json
+aws s3 cp "${APEX_PROD_PROJECT_JSON_S3_URL}" project.json
 
 echo "--- :apex: Building zip for debugging"
 
