@@ -4,13 +4,13 @@ set -euo pipefail
 
 echo "--- :lock: Setting up configs"
 
-cat EOF > env.json
+cat << EOF > env.json
 {
   "FORECAST_API_KEY": "${FORECAST_API_KEY}"
 }
 EOF
 
-cat EOF > project.json
+cat << EOF > project.json
 {
   "name": "polyglot-co-weather",
   "memory": 128,
