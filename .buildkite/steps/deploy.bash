@@ -2,10 +2,22 @@
 
 set -euo pipefail
 
-echo "--- :s3: Retrieving configs"
+echo "--- :lock: Setting up configs"
 
-aws s3 cp "${APEX_PROD_ENV_JSON_S3_URL}" env.json
-aws s3 cp "${APEX_PROD_PROJECT_JSON_S3_URL}" project.json
+cat EOF > env.json
+{
+  "FORECAST_API_KEY": "${FORECAST_API_KEY}"
+}
+EOF
+
+cat EOF > project.json
+{
+  "name": "polyglot-co-weather",
+  "memory": 128,
+  "timeout": 5,
+  "role": "${APEX_ROLE}"
+}
+EOF
 
 echo "--- :apex: Building zip for debugging"
 
