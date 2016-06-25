@@ -8,3 +8,4 @@ services:
     environment:
       FORECAST_API_KEY:
       APEX_ROLE:
+      APEX_REGION:
