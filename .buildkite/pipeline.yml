@@ -7,10 +7,14 @@ steps:
       docker-compose:
         run: node
 
+
   - wait
 
-  - name: ":lambda: Deploy"
-    command: './buildkite/scripts/deploy.bash'
-    agents:
-      queue: $BUILDKITE_AGENT_META_DATA_QUEUE
-    artifact_paths: "build.zip"
+  - trigger: "backend-deploy"
+    label: ":shipit:"
+    branches: "master"
+    async: true
+    build:
+      message: ${BUILDKITE_MESSAGE}
+      commit: ${BUILDKITE_COMMIT}
+      branch: ${BUILDKITE_BRANCH}
