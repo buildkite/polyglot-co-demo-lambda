@@ -1,6 +1,6 @@
 steps:
   - name: ":lambda: Test"
-    command: npm run test
+    command: "npm run test"
     agents:
       queue: ${BUILDKITE_AGENT_META_DATA_QUEUE}
     plugins:

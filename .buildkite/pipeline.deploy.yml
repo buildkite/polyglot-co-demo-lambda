@@ -1,7 +1,7 @@
 steps:
 
   - name: ":lambda: Deploy"
-    command: './buildkite/steps/deploy.bash'
+    command: ".buildkite/steps/deploy.bash"
     agents:
       queue: ${BUILDKITE_AGENT_META_DATA_QUEUE}
     artifact_paths: "build.zip"
