@@ -6,5 +6,5 @@ services:
     volumes:
       - .:/src
     environment:
-      S3_URL_APEX_PROD_ENV_JSON:
-      S3_URL_APEX_PROD_PROJECT_JSON:
+      FORECAST_API_KEY:
+      APEX_ROLE:
