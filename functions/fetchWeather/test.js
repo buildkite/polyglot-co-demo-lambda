@@ -1,6 +1,7 @@
 "use strict";
 
 process.env.FORECAST_API_KEY = "test-forecast-io-key"
+process.env.BUILDKITE_BUILD_NUMBER = "42"
 
 const assert = require('assert');
 const fetchMock = require('fetch-mock');
@@ -21,13 +22,17 @@ describe('fetchWeather', function() {
     fetchWeather({}, {}, function(err, json) {
       try {
         assert.equal(null, err);
+
         assert.deepEqual({
           "forecasts": [
             {
               "high": 1.2,
               "summary": "Two"
-            }
-          ]}, json);
+            },
+          ],
+          "build": "42"
+        }, json);
+
         done();
       } catch (x) {
         done(x);
@@ -39,9 +44,12 @@ describe('fetchWeather', function() {
     fetchWeather({locations: []}, {}, function(err, json) {
       try {
         assert.equal(null, err);
+
         assert.deepEqual({
-          "forecasts": []
+          "forecasts": [],
+          "build": "42"
         }, json);
+
         done();
       } catch (x) {
         done(x);
@@ -56,6 +64,7 @@ describe('fetchWeather', function() {
     fetchWeather({locations:[['43.7711','11.2486'],['52.5200','13.4050']]}, {}, function(err, json) {
       try {
         assert.equal(null, err);
+
         assert.deepEqual({
           "forecasts": [
             {
@@ -66,8 +75,10 @@ describe('fetchWeather', function() {
               "high": 2.2,
               "summary": "Loc 2 Day 2"
             }
-          ]
+          ],
+          "build": "42"
         }, json);
+
         done();
       } catch (x) {
         done(x);
@@ -81,6 +92,7 @@ describe('fetchWeather', function() {
     fetchWeather({locations:[['43.7711','11.2486']]}, {}, function(err, json) {
       try {
         assert(err);
+
         done();
       } catch (x) {
         done(x);

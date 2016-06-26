@@ -6,7 +6,8 @@ echo "--- :lock: Setting up configs"
 
 cat << EOF > env.json
 {
-  "FORECAST_API_KEY": "${FORECAST_API_KEY}"
+  "FORECAST_API_KEY": "${FORECAST_API_KEY}",
+  "BUILDKITE_BUILD_NUMBER": "${BUILDKITE_BUILD_NUMBER}"
 }
 EOF
 

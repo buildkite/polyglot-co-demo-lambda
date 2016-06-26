@@ -49,10 +49,15 @@ function forecastsResponse(forecasts) {
         "high": forecast.temperatureMax,
         "summary": forecast.summary
       }
-    })
+    }),
+    "build": buildNumber()
   }
 }
 
 function forecastUrl(apiKey, lat, lng) {
   return `https://api.forecast.io/forecast/${apiKey}/${lat},${lng}?units=ca&exclude=currently,minutely,hourly,alerts,flags`
+}
+
+function buildNumber() {
+  return process.env.BUILD_NUMBER || "42";
 }
