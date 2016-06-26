@@ -10,11 +10,14 @@ exports.handle = (e, ctx, cb) => {
   const apiKey = process.env.FORECAST_API_KEY || cb("process.env.FORECAST_API_KEY missing");
 
   // Default to Melbourne, Australia
-  const locations = e.locations || [["-37.8162789","144.9642459"]];
+  const locations = e.locations || [{lat:"-37.8162789",lng:"144.9642459",name:"Melbourne"}];
 
   Promise.all(fetchNextDayForecasts(apiKey, locations))
     .then(function(forecasts) {
-      cb(null, forecastsResponse(forecasts));
+      cb(null, {
+        "forecasts": forecasts,
+        "build": buildNumber()
+      });
     }, function(err) {
       cb(err);
     })
@@ -35,23 +38,21 @@ function fetchNextDayForecasts(forecastIoApiKey, locations) {
   return locations.map((location) => {
     debug("Fetching forecast for %s", location);
 
-    return fetch(forecastUrl(forecastIoApiKey, location[0], location[1]), {timeout:4000})
+    return fetch(forecastUrl(forecastIoApiKey, location.lat, location.lng), {timeout:4000})
       .then(checkStatus)
       .then((res) => res.json())
-      .then((json) => json.daily.data[1])
-  })
-}
+      .then((json) => {
+        const nextDayForecast = json.daily.data[1];
 
-function forecastsResponse(forecasts) {
-  return {
-    "forecasts": forecasts.map(function(forecast) {
-      return {
-        "high": forecast.temperatureMax,
-        "summary": forecast.summary
-      }
-    }),
-    "build": buildNumber()
-  }
+        return ({
+          "name": location.name,
+          "lat": location.lat,
+          "lng": location.lng,
+          "high": nextDayForecast.temperatureMax,
+          "summary": nextDayForecast.summary
+        })
+      })
+  })
 }
 
 function forecastUrl(apiKey, lat, lng) {

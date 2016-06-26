@@ -26,6 +26,9 @@ describe('fetchWeather', function() {
         assert.deepEqual({
           "forecasts": [
             {
+              "lat": "-37.8162789",
+              "lng": "144.9642459",
+              "name": "Melbourne",
               "high": 1.2,
               "summary": "Two"
             },
@@ -58,22 +61,33 @@ describe('fetchWeather', function() {
   })
 
   it('returns weather for multiple string lat/longs', function(done) {
-    mockForecastIo('43.7711','11.2486', { daily: { data: [ {temperatureMax: 1.1, summary: "Loc 1 Day 1"}, {temperatureMax: 1.2, summary: "Loc 1 Day 2"} ] } })
-    mockForecastIo('52.5200','13.4050', { daily: { data: [ {temperatureMax: 2.1, summary: "Loc 1 Day 2"}, {temperatureMax: 2.2, summary: "Loc 2 Day 2"} ] } })
+    mockForecastIo('43.7711', '11.2486', { daily: { data: [ {temperatureMax: 1.1, summary: "Loc 1 Day 1"}, {temperatureMax: 1.2, summary: "Loc 1 Day 2"} ] } })
+    mockForecastIo('52.5200', '13.4050', { daily: { data: [ {temperatureMax: 2.1, summary: "Loc 1 Day 2"}, {temperatureMax: 2.2, summary: "Loc 2 Day 2"} ] } })
 
-    fetchWeather({locations:[['43.7711','11.2486'],['52.5200','13.4050']]}, {}, function(err, json) {
+    fetchWeather({
+      locations: [
+        { lat: '43.7711', lng: '11.2486', name: "Loc 1" },
+        { lat: '52.5200', lng: '13.4050', name: "Loc 2" }
+      ]
+    }, {}, function(err, json) {
       try {
         assert.equal(null, err);
 
         assert.deepEqual({
           "forecasts": [
             {
-              "high": 1.2,
-              "summary": "Loc 1 Day 2"
+              lat: '43.7711',
+              lng: '11.2486',
+              name: "Loc 1",
+              high: 1.2,
+              summary: "Loc 1 Day 2"
             },
             {
-              "high": 2.2,
-              "summary": "Loc 2 Day 2"
+              lat: '52.5200',
+              lng: '13.4050',
+              name: "Loc 2",
+              high: 2.2,
+              summary: "Loc 2 Day 2"
             }
           ],
           "build": "42"
@@ -89,7 +103,7 @@ describe('fetchWeather', function() {
   it('handles API errors', function(done) {
     mockForecastIo('43.7711','11.2486', 400);
 
-    fetchWeather({locations:[['43.7711','11.2486']]}, {}, function(err, json) {
+    fetchWeather({ locations: [{ lat: '43.7711', lng: '11.2486', name: "Loc 1" }] }, {}, function(err, json) {
       try {
         assert(err);
 
