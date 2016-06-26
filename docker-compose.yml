@@ -7,5 +7,6 @@ services:
       - .:/src
     environment:
       FORECAST_API_KEY:
+      BUILDKITE_BUILD_NUMBER:
       APEX_ROLE:
       APEX_REGION:
