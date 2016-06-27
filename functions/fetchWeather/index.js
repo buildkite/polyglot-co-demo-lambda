@@ -45,11 +45,11 @@ function fetchNextDayForecasts(forecastIoApiKey, locations) {
         const nextDayForecast = json.daily.data[1];
 
         return ({
-          "name": location.name,
-          "lat": location.lat,
-          "lng": location.lng,
-          "high": nextDayForecast.temperatureMax,
-          "summary": nextDayForecast.summary
+          "name":    location.name,
+          "lat":     location.lat,
+          "lng":     location.lng,
+          "high":    nextDayForecast.temperatureMax,
+          "summary": nextDayForecast.summary.replace(/\.$/,'')
         })
       })
   })
