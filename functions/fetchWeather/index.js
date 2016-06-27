@@ -36,13 +36,17 @@ function checkStatus(response) {
 
 function fetchNextDayForecasts(forecastIoApiKey, locations) {
   return locations.map((location) => {
-    debug("Fetching forecast for %s", location);
+    debug("Fetching forecast for %j", location);
 
     return fetch(forecastUrl(forecastIoApiKey, location.lat, location.lng), {timeout:4000})
       .then(checkStatus)
       .then((res) => res.json())
       .then((json) => {
+        debug("Received forecast for %s is %j", location.name, json);
+
         const nextDayForecast = json.daily.data[1];
+
+        debug("Next day forecast for %s is %j", location.name, nextDayForecast);
 
         return ({
           "name":    location.name,
