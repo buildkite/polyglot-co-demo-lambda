@@ -60,5 +60,5 @@ function forecastUrl(apiKey, lat, lng) {
 }
 
 function buildNumber() {
-  return process.env.BUILD_NUMBER || "42";
+  return process.env.BUILDKITE_BUILD_NUMBER || "42";
 }
