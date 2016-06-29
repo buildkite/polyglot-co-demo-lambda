@@ -7,3 +7,5 @@ steps:
     plugins:
       docker-compose:
         run: node
+    concurrency: 1
+    concurrency_group: lambda-deploy
